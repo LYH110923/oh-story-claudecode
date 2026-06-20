@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>武侠像素英雄 · WuXiaPixelHeroes Collection</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{
+  --bg:#0e0a1a;
+  --bg2:#1a1330;
+  --ink:#f4e9c4;
+  --gold:#e8c466;
+  --red:#c93c3c;
+  --blue:#4a77d4;
+  --green:#4a9a5c;
+  --purple:#8b5cc9;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Courier New",monospace;
+  background:
+    radial-gradient(ellipse at top,#2a1f4a 0%,#0e0a1a 60%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0,2px,transparent 2px,4px);
+  color:var(--ink);
+  min-height:100vh;
+  padding:40px 20px;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle at 10% 20%,rgba(232,196,102,.08) 0,2px,transparent 3px),
+    radial-gradient(circle at 80% 60%,rgba(201,60,60,.08) 0,2px,transparent 3px),
+    radial-gradient(circle at 50% 80%,rgba(74,119,212,.08) 0,2px,transparent 3px);
+  background-size:80px 80px,120px 120px,100px 100px;
+}
+.wrap{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+header{text-align:center;margin-bottom:50px}
+.big-title{
+  font-size:52px;letter-spacing:8px;color:var(--gold);
+  text-shadow:3px 3px 0 var(--red),6px 6px 0 #3a1a1a;
+  font-weight:bold;
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.subtitle{font-size:16px;color:#a89d7a;margin-top:12px;letter-spacing:4px}
+.collection-info{
+  margin-top:20px;font-size:13px;color:#8b7d5a;letter-spacing:2px;
+}
+.collection-info span{color:var(--gold);padding:4px 10px;border:1px solid var(--gold);margin:0 4px}
+.grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:30px;margin-top:40px;
+}
+@media (max-width:760px){.grid{grid-template-columns:1fr}.big-title{font-size:32px;letter-spacing:4px}}
+
+.card{
+  background:linear-gradient(135deg,#1e1535 0%,#120a22 100%);
+  border:3px solid var(--gold);
+  padding:24px;position:relative;
+  box-shadow:0 0 0 1px #000,8px 8px 0 #3a1a1a,0 0 40px rgba(232,196,102,.15);
+  transition:transform .3s,box-shadow .3s;
+}
+.card:hover{transform:translate(-4px,-4px);box-shadow:0 0 0 1px #000,12px 12px 0 #3a1a1a,0 0 60px rgba(232,196,102,.3)}
+.card::before{
+  content:"";position:absolute;top:-3px;left:-3px;right:-3px;bottom:-3px;
+  background:linear-gradient(45deg,transparent 48%,var(--gold) 49%,var(--gold) 51%,transparent 52%);
+  background-size:20px 20px;opacity:.1;pointer-events:none;
+}
+.nft-id{
+  position:absolute;top:-14px;left:20px;background:var(--gold);color:#1a1330;
+  padding:4px 14px;font-weight:bold;font-size:13px;letter-spacing:2px;
+}
+.rarity{
+  position:absolute;top:-14px;right:20px;padding:4px 14px;font-size:12px;
+  letter-spacing:2px;font-weight:bold;border:2px solid currentColor;
+}
+.rarity.legendary{color:#ff4444;background:#2a0a0a}
+.rarity.epic{color:#c971ff;background:#1c0a2a}
+.rarity.rare{color:#4a9eff;background:#0a1a2a}
+.rarity.uncommon{color:#4a9a5c;background:#0a1a0e}
+
+.pixel-canvas{
+  background:#0a0715;
+  border:2px solid #2a1f4a;
+  padding:16px;
+  display:flex;justify-content:center;align-items:center;
+  aspect-ratio:1;
+  image-rendering:pixelated;
+}
+.pixel-canvas svg{width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+.info{margin-top:16px;padding-top:16px;border-top:2px dashed #3a2f5a}
+.name{font-size:22px;color:var(--gold);letter-spacing:3px;margin-bottom:8px}
+.desc{font-size:13px;color:#a89d7a;line-height:1.8;margin-bottom:12px}
+.traits{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.trait{
+  font-size:11px;padding:4px 10px;border:1px solid #3a2f5a;background:#18102a;
+  letter-spacing:1px;color:#d4c89a;
+}
+.trait strong{color:var(--ink)}
+.footer{text-align:center;margin-top:60px;color:#5a4d7a;font-size:12px;letter-spacing:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="big-title">武侠像素英雄</div>
+    <div class="subtitle">W U X I A &nbsp; P I X E L &nbsp; H E R O E S</div>
+    <div class="collection-info">
+      <span>限量 100 枚</span><span>独一无二</span><span>ERC-721</span>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <!-- NFT #1: 剑客 -->
+    <div class="card">
+      <div class="nft-id">#001 / 100</div>
+      <div class="rarity legendary">传说 LEGENDARY</div>
+      <div class="pixel-canvas">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- 背景 -->
+          <rect width="32" height="32" fill="#1a0a2a"/>
+          <!-- 月亮 -->
+          <circle cx="25" cy="6" r="3" fill="#f4e9c4"/>
+          <circle cx="25" cy="6" r="2" fill="#fff7d4"/>
+          <!-- 竹叶 -->
+          <rect x="3" y="4" width="1" height="2" fill="#4a9a5c"/>
+          <rect x="4" y="3" width="1" height="1" fill="#5aaf6c"/>
+          <rect x="2" y="6" width="1" height="1" fill="#4a9a5c"/>
+          <rect x="28" y="22" width="1" height="2" fill="#4a9a5c"/>
+          <rect x="29" y="24" width="1" height="1" fill="#5aaf6c"/>
+          <!-- 头部 (黑发) -->
+          <rect x="13" y="7" width="6" height="2" fill="#1a1a1a"/>
+          <rect x="12" y="9" width="8" height="1" fill="#1a1a1a"/>
+          <rect x="12" y="10" width="8" height="3" fill="#f4d4a4"/>
+          <!-- 眼睛 -->
+          <rect x="14" y="11" width="1" height="1" fill="#1a1a1a"/>
+          <rect x="17" y="11" width="1" height="1" fill="#1a1a1a"/>
+          <!-- 嘴 -->
+          <rect x="15" y="12" width="2" height="1" fill="#8b4a3c"/>
+          <!-- 发髻 -->
+          <rect x="14" y="5" width="4" height="2" fill="#1a1a1a"/>
+          <rect x="15" y="4" width="2" height="1" fill="#1a1a1a"/>
+          <rect x="15" y="3" width="2" height="1" fill="#8b5c3c"/>
+          <!-- 白衣袍 -->
+          <rect x="11" y="13" width="10" height="8" fill="#f4e9c4"/>
+          <rect x="10" y="15" width="12" height="5" fill="#e8d4a4"/>
+          <!-- 腰带 -->
+          <rect x="11" y="17" width="10" height="1" fill="#c93c3c"/>
+          <rect x="15" y="17" width="2" height="2" fill="#e8c466"/>
+          <!-- 外袍披风 -->
+          <rect x="9" y="14" width="2" height="7" fill="#3a5a8a"/>
+          <rect x="21" y="14" width="2" height="7" fill="#3a5a8a"/>
+          <rect x="8" y="16" width="1" height="5" fill="#2a3a6a"/>
+          <rect x="23" y="16" width="1" height="5" fill="#2a3a6a"/>
+          <!-- 左腿 -->
+          <rect x="13" y="21" width="3" height="6" fill="#2a3a6a"/>
+          <rect x="13" y="27" width="3" height="2" fill="#1a1a1a"/>
+          <!-- 右腿 -->
+          <rect x="17" y="21" width="3" height="6" fill="#2a3a6a"/>
+          <rect x="17" y="27" width="3" height="2" fill="#1a1a1a"/>
+          <!-- 手臂 -->
+          <rect x="9" y="16" width="2" height="5" fill="#f4d4a4"/>
+          <rect x="21" y="16" width="2" height="5" fill="#f4d4a4"/>
+          <!-- 剑（右手） -->
+          <rect x="7" y="12" width="1" height="10" fill="#c0c0d0"/>
+          <rect x="6" y="8" width="3" height="4" fill="#e8e8f0"/>
+          <rect x="6" y="7" width="3" height="1" fill="#e8c466"/>
+          <rect x="7" y="13" width="1" height="2" fill="#8b5c3c"/>
+          <!-- 剑鞘（左手） -->
+          <rect x="23" y="14" width="2" height="7" fill="#4a3a2a"/>
+          <rect x="23" y="13" width="2" height="1" fill="#e8c466"/>
+          <!-- 高光 -->
+          <rect x="12" y="10" width="1" height="1" fill="#fff0d0"/>
+          <rect x="11" y="15" width="1" height="1" fill="#fff7d4"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">云游剑客</div>
+        <div class="desc">一袭白衫走江湖，三尺长剑斩不平。传说中的浪子侠客，剑法如流云般飘渺。</div>
+        <div class="traits">
+          <div class="trait"><strong>角色</strong> · 剑客</div>
+          <div class="trait"><strong>性别</strong> · 男</div>
+          <div class="trait"><strong>武器</strong> · 长剑</div>
+          <div class="trait"><strong>服饰</strong> · 白衫披风</div>
+          <div class="trait"><strong>背景</strong> · 月下竹林</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NFT #2: 女侠 -->
+    <div class="card">
+      <div class="nft-id">#002 / 100</div>
+      <div class="rarity epic">史诗 EPIC</div>
+      <div class="pixel-canvas">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <rect width="32" height="32" fill="#2a0a1a"/>
+          <!-- 樱花 -->
+          <circle cx="5" cy="6" r="1" fill="#ffb4d4"/>
+          <circle cx="27" cy="8" r="1" fill="#ffb4d4"/>
+          <circle cx="8" cy="24" r="1" fill="#ffc4dc"/>
+          <circle cx="25" cy="26" r="1" fill="#ffb4d4"/>
+          <!-- 头部黑发 -->
+          <rect x="13" y="6" width="6" height="2" fill="#1a0a0a"/>
+          <rect x="12" y="8" width="8" height="1" fill="#1a0a0a"/>
+          <rect x="11" y="9" width="10" height="4" fill="#f4d4a4"/>
+          <rect x="11" y="9" width="10" height="1" fill="#1a0a0a"/>
+          <!-- 长发飘逸 -->
+          <rect x="10" y="10" width="1" height="8" fill="#1a0a0a"/>
+          <rect x="21" y="10" width="1" height="8" fill="#1a0a0a"/>
+          <rect x="9" y="12" width="1" height="5" fill="#2a1a1a"/>
+          <rect x="22" y="12" width="1" height="5" fill="#2a1a1a"/>
+          <!-- 眼睛（凤眼） -->
+          <rect x="13" y="11" width="2" height="1" fill="#1a1a1a"/>
+          <rect x="17" y="11" width="2" height="1" fill="#1a1a1a"/>
+          <rect x="13" y="11" width="1" height="1" fill="#000"/>
+          <rect x="18" y="11" width="1" height="1" fill="#000"/>
+          <!-- 红唇 -->
+          <rect x="15" y="12" width="2" height="1" fill="#c93c6c"/>
+          <!-- 发簪 -->
+          <rect x="14" y="4" width="1" height="2" fill="#e8c466"/>
+          <rect x="17" y="4" width="1" height="2" fill="#e8c466"/>
+          <rect x="14" y="3" width="1" height="1" fill="#ff4488"/>
+          <rect x="17" y="3" width="1" height="1" fill="#ff4488"/>
+          <!-- 粉色衣裙 -->
+          <rect x="12" y="13" width="8" height="9" fill="#ff8fb4"/>
+          <rect x="11" y="16" width="10" height="6" fill="#e877a4"/>
+          <!-- 腰带 -->
+          <rect x="11" y="18" width="10" height="1" fill="#e8c466"/>
+          <!-- 裙摆花边 -->
+          <rect x="11" y="22" width="10" height="1" fill="#d46794"/>
+          <!-- 双腿 -->
+          <rect x="13" y="23" width="2" height="5" fill="#f4d4a4"/>
+          <rect x="17" y="23" width="2" height="5" fill="#f4d4a4"/>
+          <rect x="13" y="28" width="2" height="1" fill="#8b3a5a"/>
+          <rect x="17" y="28" width="2" height="1" fill="#8b3a5a"/>
+          <!-- 手臂 -->
+          <rect x="10" y="15" width="2" height="6" fill="#f4d4a4"/>
+          <rect x="20" y="15" width="2" height="6" fill="#f4d4a4"/>
+          <!-- 折扇（右手） -->
+          <rect x="6" y="14" width="4" height="1" fill="#f4e9c4"/>
+          <rect x="6" y="15" width="4" height="1" fill="#ff8fb4"/>
+          <rect x="7" y="16" width="3" height="1" fill="#f4e9c4"/>
+          <rect x="8" y="17" width="2" height="1" fill="#ff8fb4"/>
+          <rect x="10" y="18" width="1" height="2" fill="#8b5c3c"/>
+          <!-- 香囊（左手） -->
+          <rect x="21" y="19" width="3" height="3" fill="#e8c466"/>
+          <rect x="22" y="20" width="1" height="1" fill="#c93c6c"/>
+          <rect x="22" y="18" width="1" height="1" fill="#8b5c3c"/>
+          <!-- 高光 -->
+          <rect x="12" y="10" width="1" height="1" fill="#fff0d0"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">胭脂女侠</div>
+        <div class="desc">粉裙折扇，眉眼如画。江湖传言她一舞可倾城，一笑可倾城。</div>
+        <div class="traits">
+          <div class="trait"><strong>角色</strong> · 女侠</div>
+          <div class="trait"><strong>性别</strong> · 女</div>
+          <div class="trait"><strong>武器</strong> · 折扇</div>
+          <div class="trait"><strong>服饰</strong> · 粉裙襦</div>
+          <div class="trait"><strong>背景</strong> · 樱花飘零</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NFT #3: 刀客 -->
+    <div class="card">
+      <div class="nft-id">#003 / 100</div>
+      <div class="rarity rare">稀有 RARE</div>
+      <div class="pixel-canvas">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <rect width="32" height="32" fill="#0a1a2a"/>
+          <!-- 远山 -->
+          <polygon points="0,28 6,18 12,28" fill="#1a2a3a"/>
+          <polygon points="8,28 16,20 24,28" fill="#1a2a3a"/>
+          <polygon points="20,28 28,22 32,28" fill="#1a2a3a"/>
+          <!-- 太阳 -->
+          <circle cx="6" cy="7" r="2" fill="#ff8844"/>
+          <circle cx="6" cy="7" r="1" fill="#ffbb66"/>
+          <!-- 斗笠 -->
+          <rect x="10" y="5" width="12" height="1" fill="#4a3a2a"/>
+          <rect x="11" y="4" width="10" height="1" fill="#4a3a2a"/>
+          <rect x="13" y="3" width="6" height="1" fill="#3a2a1a"/>
+          <rect x="14" y="6" width="4" height="1" fill="#3a2a1a"/>
+          <!-- 阴影下的脸 -->
+          <rect x="12" y="7" width="8" height="4" fill="#8b6a4a"/>
+          <rect x="12" y="7" width="8" height="1" fill="#1a0a0a"/>
+          <rect x="13" y="8" width="6" height="3" fill="#c49a6a"/>
+          <!-- 眼睛（阴影中仅露两点光） -->
+          <rect x="14" y="9" width="1" height="1" fill="#fff"/>
+          <rect x="17" y="9" width="1" height="1" fill="#fff"/>
+          <!-- 虬须/嘴 -->
+          <rect x="15" y="10" width="2" height="1" fill="#3a1a1a"/>
+          <!-- 深色武服 -->
+          <rect x="11" y="12" width="10" height="10" fill="#2a2a3a"/>
+          <rect x="10" y="14" width="12" height="7" fill="#1a1a2a"/>
+          <!-- 腰带 -->
+          <rect x="11" y="17" width="10" height="2" fill="#c93c3c"/>
+          <rect x="14" y="17" width="4" height="1" fill="#e8c466"/>
+          <!-- 左臂 -->
+          <rect x="8" y="14" width="3" height="8" fill="#2a2a3a"/>
+          <rect x="8" y="22" width="3" height="1" fill="#3a2a4a"/>
+          <!-- 右手持弯刀 -->
+          <rect x="21" y="10" width="1" height="8" fill="#c49a6a"/>
+          <!-- 弯刀 -->
+          <rect x="23" y="6" width="2" height="1" fill="#e8e8f0"/>
+          <rect x="24" y="7" width="2" height="1" fill="#e8e8f0"/>
+          <rect x="25" y="8" width="2" height="1" fill="#e8e8f0"/>
+          <rect x="26" y="9" width="2" height="1" fill="#e8e8f0"/>
+          <rect x="27" y="10" width="2" height="1" fill="#e8e8f0"/>
+          <rect x="28" y="11" width="1" height="1" fill="#e8e8f0"/>
+          <rect x="28" y="12" width="1" height="1" fill="#e8e8f0"/>
+          <rect x="27" y="13" width="1" height="1" fill="#e8e8f0"/>
+          <!-- 刀柄 -->
+          <rect x="21" y="10" width="2" height="3" fill="#4a3a2a"/>
+          <rect x="20" y="13" width="3" height="1" fill="#e8c466"/>
+          <!-- 双腿 -->
+          <rect x="12" y="22" width="3" height="6" fill="#1a1a2a"/>
+          <rect x="17" y="22" width="3" height="6" fill="#1a1a2a"/>
+          <rect x="12" y="28" width="3" height="1" fill="#3a2a1a"/>
+          <rect x="17" y="28" width="3" height="1" fill="#3a2a1a"/>
+          <!-- 披风飘动 -->
+          <rect x="8" y="22" width="2" height="4" fill="#3a2a4a"/>
+          <rect x="7" y="24" width="2" height="3" fill="#2a2a3a"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">孤影刀客</div>
+        <div class="desc">斗笠遮面，弯刀映月。没人见过他的真容，见过的人都已不在人世。</div>
+        <div class="traits">
+          <div class="trait"><strong>角色</strong> · 刀客</div>
+          <div class="trait"><strong>性别</strong> · 男</div>
+          <div class="trait"><strong>武器</strong> · 弯刀</div>
+          <div class="trait"><strong>服饰</strong> · 夜行衣</div>
+          <div class="trait"><strong>背景</strong> · 黄昏远山</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NFT #4: 僧人 -->
+    <div class="card">
+      <div class="nft-id">#004 / 100</div>
+      <div class="rarity uncommon">精良 UNCOMMON</div>
+      <div class="pixel-canvas">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <rect width="32" height="32" fill="#1a1a0a"/>
+          <!-- 禅字光晕 -->
+          <circle cx="16" cy="16" r="14" fill="#2a2a1a" opacity=".6"/>
+          <circle cx="16" cy="16" r="10" fill="#3a3a2a" opacity=".4"/>
+          <!-- 金色光晕圆环 -->
+          <circle cx="16" cy="6" r="2" fill="#e8c466" opacity=".7"/>
+          <circle cx="6" cy="26" r="1" fill="#e8c466" opacity=".6"/>
+          <circle cx="27" cy="26" r="1" fill="#e8c466" opacity=".6"/>
+          <!-- 光头 -->
+          <rect x="13" y="7" width="6" height="1" fill="#c49a6a"/>
+          <rect x="12" y="8" width="8" height="4" fill="#f4d4a4"/>
+          <rect x="13" y="6" width="6" height="1" fill="#d4b488"/>
+          <!-- 戒疤 -->
+          <rect x="14" y="7" width="1" height="1" fill="#c93c3c"/>
+          <rect x="16" y="7" width="1" height="1" fill="#c93c3c"/>
+          <rect x="18" y="7" width="1" height="1" fill="#c93c3c"/>
+          <!-- 眼睛闭眼 -->
+          <rect x="13" y="10" width="2" height="1" fill="#3a2a1a"/>
+          <rect x="17" y="10" width="2" height="1" fill="#3a2a1a"/>
+          <!-- 鼻子 -->
+          <rect x="15" y="11" width="2" height="1" fill="#c49a6a"/>
+          <!-- 嘴 -->
+          <rect x="15" y="12" width="2" height="1" fill="#8b6a4a"/>
+          <!-- 僧袍（黄袍） -->
+          <rect x="10" y="13" width="12" height="11" fill="#c49a4a"/>
+          <rect x="9" y="15" width="14" height="9" fill="#b48a3a"/>
+          <!-- 斜挎袈裟 -->
+          <rect x="10" y="15" width="2" height="9" fill="#a47a2a"/>
+          <rect x="12" y="16" width="2" height="8" fill="#a47a2a"/>
+          <rect x="14" y="17" width="2" height="7" fill="#a47a2a"/>
+          <!-- 领口 -->
+          <rect x="14" y="13" width="4" height="2" fill="#e8c466"/>
+          <!-- 佛珠 -->
+          <rect x="13" y="16" width="1" height="1" fill="#8b4a2a"/>
+          <rect x="18" y="16" width="1" height="1" fill="#8b4a2a"/>
+          <rect x="12" y="17" width="1" height="1" fill="#8b4a2a"/>
+          <rect x="19" y="17" width="1" height="1" fill="#8b4a2a"/>
+          <rect x="11" y="18" width="1" height="1" fill="#8b4a2a"/>
+          <rect x="20" y="18" width="1" height="1" fill="#8b4a2a"/>
+          <!-- 左腿盘坐 -->
+          <rect x="10" y="23" width="6" height="4" fill="#b48a3a"/>
+          <rect x="9" y="24" width="8" height="3" fill="#c49a4a"/>
+          <!-- 右腿盘坐 -->
+          <rect x="16" y="23" width="6" height="4" fill="#a47a2a"/>
+          <rect x="15" y="25" width="8" height="2" fill="#b48a3a"/>
+          <!-- 合十双手 -->
+          <rect x="14" y="19" width="4" height="5" fill="#f4d4a4"/>
+          <rect x="15" y="20" width="2" height="1" fill="#c49a6a"/>
+          <rect x="14" y="21" width="4" height="1" fill="#e8c466"/>
+          <!-- 长棍 -->
+          <rect x="5" y="4" width="1" height="24" fill="#6a4a2a"/>
+          <rect x="5" y="3" width="1" height="1" fill="#e8c466"/>
+          <rect x="5" y="28" width="1" height="1" fill="#e8c466"/>
+          <!-- 禅光 -->
+          <rect x="15" y="5" width="1" height="1" fill="#fff7d4"/>
+          <rect x="16" y="5" width="1" height="1" fill="#fff7d4"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">禅心武僧</div>
+        <div class="desc">三戒疤，一长棍。打坐不动如山，出棍则如雷霆。少林百年一出的奇才。</div>
+        <div class="traits">
+          <div class="trait"><strong>角色</strong> · 武僧</div>
+          <div class="trait"><strong>性别</strong> · 男</div>
+          <div class="trait"><strong>武器</strong> · 长棍</div>
+          <div class="trait"><strong>服饰</strong> · 黄袍袈裟</div>
+          <div class="trait"><strong>背景</strong> · 古寺禅光</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    · WuXiaPixelHeroes Collection · 100 Unique Heroes · ERC-721 ·
+  </div>
+</div>
+</body>
+</html>
