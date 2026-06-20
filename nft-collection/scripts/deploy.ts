@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { MyNFTCollection } from "../typechain-types";
+import { WuXiaPixelHeroes } from "../typechain-types";
 
 async function main() {
   const [deployer] = await ethers.getSigners();
@@ -7,14 +7,14 @@ async function main() {
   console.log("Account balance:", (await ethers.provider.getBalance(deployer.address)).toString());
 
   // ============ CONFIG ============
-  const NFT_NAME = "MyNFTCollection";
-  const NFT_SYMBOL = "MNFT";
-  const UNREVEALED_URI = "ipfs://QmUnrevealedPlaceholderURI/";
+  const NFT_NAME = "WuXiaPixelHeroes";
+  const NFT_SYMBOL = "WXPH";
+  const UNREVEALED_URI = "ipfs://QmWuXiaPixelHeroesUnrevealedPlaceholder/";
   const MERKLE_ROOT = "0x0000000000000000000000000000000000000000000000000000000000000000";
   // ⬆️ Replace with your actual merkle root (run `npx ts-node scripts/generateMerkleRoot.ts` to generate)
 
-  const MyNFTCollectionFactory = await ethers.getContractFactory("MyNFTCollection");
-  const nft: MyNFTCollection = await MyNFTCollectionFactory.deploy(
+  const WuXiaPixelHeroesFactory = await ethers.getContractFactory("WuXiaPixelHeroes");
+  const nft: WuXiaPixelHeroes = await WuXiaPixelHeroesFactory.deploy(
     NFT_NAME,
     NFT_SYMBOL,
     UNREVEALED_URI,
@@ -25,9 +25,9 @@ async function main() {
   const deployedAddress = await nft.getAddress();
 
   console.log("\n================================================");
-  console.log(`✅  NFT Collection deployed to: ${deployedAddress}`);
-  console.log(`    Network chainId: ${(await ethers.provider.getNetwork()).chainId}`);
-  console.log(`    Gas used: ~...`);
+  console.log(`✅  武侠像素英雄 NFT 合集已部署到: ${deployedAddress}`);
+  console.log(`    网络链 ID: ${(await ethers.provider.getNetwork()).chainId}`);
+  console.log(`    总量: 100 枚（10 枚团队储备）`);
   console.log("================================================\n");
 
   console.log("💡 下一步操作建议:");

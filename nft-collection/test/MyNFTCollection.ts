@@ -6,12 +6,12 @@ import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
-import { MyNFTCollection } from "../typechain-types";
+import { WuXiaPixelHeroes } from "../typechain-types";
 
 const PRESALE_PRICE = ethers.parseEther("0.01");
 const PUBLIC_PRICE = ethers.parseEther("0.02");
 
-describe("MyNFTCollection", function () {
+describe("WuXiaPixelHeroes", function () {
   async function deployFixture() {
     const [owner, user1, user2, user3, notWhitelistedUser] =
       await ethers.getSigners();
@@ -26,11 +26,11 @@ describe("MyNFTCollection", function () {
     );
     const merkleRoot = tree.root;
 
-    const MyNFTCollection = await ethers.getContractFactory("MyNFTCollection");
-    const nft: MyNFTCollection = await MyNFTCollection.deploy(
-      "TestNFT",
-      "TNFT",
-      "ipfs://QmUnrevealed/",
+    const WuXiaPixelHeroesFactory = await ethers.getContractFactory("WuXiaPixelHeroes");
+    const nft: WuXiaPixelHeroes = await WuXiaPixelHeroesFactory.deploy(
+      "WuXiaPixelHeroes",
+      "WXPH",
+      "ipfs://QmWuXiaPixelHeroesUnrevealed/",
       merkleRoot
     );
 
@@ -64,8 +64,8 @@ describe("MyNFTCollection", function () {
 
     it("Should set correct name and symbol", async function () {
       const { nft } = await loadFixture(deployFixture);
-      expect(await nft.name()).to.equal("TestNFT");
-      expect(await nft.symbol()).to.equal("TNFT");
+      expect(await nft.name()).to.equal("WuXiaPixelHeroes");
+      expect(await nft.symbol()).to.equal("WXPH");
     });
 
     it("Should start with NotStarted phase", async function () {
@@ -76,7 +76,7 @@ describe("MyNFTCollection", function () {
     it("Should have correct initial supply", async function () {
       const { nft } = await loadFixture(deployFixture);
       expect(await nft.totalMinted()).to.equal(0);
-      expect(await nft.MAX_SUPPLY()).to.equal(10000);
+      expect(await nft.MAX_SUPPLY()).to.equal(100);
     });
   });
 
@@ -154,11 +154,11 @@ describe("MyNFTCollection", function () {
       await nft.startPresale();
 
       const proof = getProof(user1.address);
-      // Mint 3 (max)
-      await nft.connect(user1).presaleMint(3, proof, {
-        value: PRESALE_PRICE * 3n,
+      // Mint 2 (max)
+      await nft.connect(user1).presaleMint(2, proof, {
+        value: PRESALE_PRICE * 2n,
       });
-      // 4th should fail
+      // 3rd should fail
       await expect(
         nft.connect(user1).presaleMint(1, proof, { value: PRESALE_PRICE })
       ).to.be.revertedWithCustomError(nft, "ExceedsPresaleLimit");
@@ -195,9 +195,9 @@ describe("MyNFTCollection", function () {
       const { nft, user1 } = await loadFixture(deployFixture);
       await nft.startPublicSale();
 
-      // Mint 5 (max)
-      await nft.connect(user1).publicMint(5, { value: PUBLIC_PRICE * 5n });
-      // 6th should fail
+      // Mint 3 (max)
+      await nft.connect(user1).publicMint(3, { value: PUBLIC_PRICE * 3n });
+      // 4th should fail
       await expect(
         nft.connect(user1).publicMint(1, { value: PUBLIC_PRICE })
       ).to.be.revertedWithCustomError(nft, "ExceedsPublicLimit");
@@ -324,18 +324,20 @@ describe("MyNFTCollection", function () {
       await nft.startPublicSale();
 
       const signers = await ethers.getSigners();
-      const users = signers.slice(1, 20); // 19 users
+      const users = signers.slice(1, 31); // 30 users
 
+      // 30 users * 3 each = 90 public mints
       for (const user of users) {
-        await nft.connect(user).publicMint(5, {
-          value: ethers.parseEther("0.10"),
+        await nft.connect(user).publicMint(3, {
+          value: PUBLIC_PRICE * 3n,
         });
       }
 
-      await nft.reserveMint(owner.address, 100);
+      // + 10 reserve = 100 total
+      await nft.reserveMint(owner.address, 10);
 
       const total = await nft.totalMinted();
-      expect(total).to.equal(19 * 5 + 100);
+      expect(total).to.equal(90 + 10);
       expect(total).to.be.lessThanOrEqual(await nft.MAX_SUPPLY());
     });
   });

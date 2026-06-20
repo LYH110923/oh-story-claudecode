@@ -1,27 +1,34 @@
-# NFT Collection - ERC-721 智能合约项目
+# 武侠像素英雄 (WuXiaPixelHeroes) - ERC-721 NFT 合集
 
-一个完整的 ERC-721 NFT 发售项目,使用 Solidity 0.8.24 + Hardhat + OpenZeppelin。
+100 位独一无二的武侠像素小人 NFT 合集，使用 Solidity 0.8.24 + Hardhat + OpenZeppelin 构建。
+
+## 项目简介
+
+本项目发行 **100 枚独一无二的武侠像素小人 NFT**，每一枚都拥有不同的形象：
+- 🏹 **男女角色**：侠客、女侠、刀客、剑客等
+- ⚔️ **多样武器**：长剑、弯刀、长枪、折扇、飞镖、双节棍等
+- 🎨 **像素艺术风格**：复古像素画风，每一枚都是独立设计
 
 ## 功能特性
 
 - ✅ **ERC-721 标准代币** (兼容所有 NFT 市场:OpenSea、Blur、LooksRare 等)
 - ✅ **白名单预售** (Merkle Tree 实现,Gas 极低)
 - ✅ **公开发售** (无门槛,支持每人限额)
-- ✅ **团队储备额度** (100 个留作空投/Giveaway)
+- ✅ **团队储备额度** (10 个留作空投/Giveaway)
 - ✅ **可暂停** (紧急情况下暂停 mint)
 - ✅ **延迟 Reveal** (发售完成后再揭露元数据)
 - ✅ **ETH 自动提款** (提现到 owner 地址)
 - ✅ **两步所有权转让** (Ownable2Step,防止误操作)
 - ✅ **完整测试** (约 20+ 测试用例覆盖所有核心路径)
 
-## 合约参数(可修改)
+## 合约参数
 
 | 参数 | 默认值 | 说明 |
 |------|--------|------|
-| `MAX_SUPPLY` | 10,000 | 总供应量 |
-| `RESERVE_SUPPLY` | 100 | 团队储备量 |
-| `PRESALE_MAX_PER_WALLET` | 3 | 白名单每人上限 |
-| `PUBLICSALE_MAX_PER_WALLET` | 5 | 公售每人上限 |
+| `MAX_SUPPLY` | 100 | 总供应量 |
+| `RESERVE_SUPPLY` | 10 | 团队储备量 |
+| `PRESALE_MAX_PER_WALLET` | 2 | 白名单每人上限 |
+| `PUBLICSALE_MAX_PER_WALLET` | 3 | 公售每人上限 |
 | `presalePrice` | 0.01 ETH | 预售单价 |
 | `publicPrice` | 0.02 ETH | 公售单价 |
 
@@ -30,7 +37,7 @@
 ```
 nft-collection/
 ├── contracts/
-│   └── MyNFTCollection.sol     # 核心合约
+│   └── WuXiaPixelHeroes.sol    # 核心合约
 ├── test/
 │   └── MyNFTCollection.ts      # 测试用例
 ├── scripts/
@@ -99,7 +106,7 @@ npx ts-node scripts/generateMerkleRoot.ts
 
 ### 5. 修改合约配置
 
-编辑 `contracts/MyNFTCollection.sol`:
+编辑 `contracts/WuXiaPixelHeroes.sol`:
 - 修改 `MAX_SUPPLY`、`RESERVE_SUPPLY` 等常量
 - 修改 `presalePrice`、`publicPrice`
 
@@ -139,7 +146,7 @@ npx hardhat run scripts/deploy.ts --network base
 
 ```bash
 npx hardhat verify --network ethereum \
-  <部署地址> "MyNFTCollection" "MNFT" "ipfs://Qm..." "0x<merkleRoot>"
+  <部署地址> "WuXiaPixelHeroes" "WXPH" "ipfs://Qm..." "0x<merkleRoot>"
 ```
 
 ---
@@ -160,7 +167,7 @@ startPresale()
 
 # 或通过 Hardhat console:
 npx hardhat console --network ethereum
-> const nft = await ethers.getContractAt("MyNFTCollection", "<合约地址>")
+> const nft = await ethers.getContractAt("WuXiaPixelHeroes", "<合约地址>")
 > await nft.startPresale()
 ```
 
@@ -208,17 +215,25 @@ withdraw()
 
 ```json
 {
-  "name": "MyNFT #1",
-  "description": "这是一个示例 NFT 描述",
+  "name": "武侠像素英雄 #1",
+  "description": "一位独一无二的武侠像素小人，手持专属武器，行走于江湖",
   "image": "ipfs://QmImageHash/image1.png",
   "attributes": [
     {
-      "trait_type": "Background",
-      "value": "Blue"
+      "trait_type": "角色",
+      "value": "剑客"
     },
     {
-      "trait_type": "Rarity",
-      "value": "Legendary"
+      "trait_type": "性别",
+      "value": "男"
+    },
+    {
+      "trait_type": "武器",
+      "value": "长剑"
+    },
+    {
+      "trait_type": "稀有度",
+      "value": "传说"
     }
   ]
 }

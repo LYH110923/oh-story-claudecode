@@ -10,7 +10,7 @@ import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProo
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
- * @title MyNFTCollection
+ * @title WuXiaPixelHeroes
  * @dev ERC-721 NFT Collection with:
  *      - Merkle-tree whitelist presale
  *      - Public sale with per-wallet limit
@@ -19,16 +19,16 @@ import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
  *      - Revealable metadata (base URI + unrevealed URI)
  *      - ETH withdrawal
  */
-contract MyNFTCollection is ERC721, ERC721Enumerable, ERC721Burnable, Ownable2Step, Pausable {
+contract WuXiaPixelHeroes is ERC721, ERC721Enumerable, ERC721Burnable, Ownable2Step, Pausable {
     using Strings for uint256;
 
     // ============ SUPPLY CONFIG ============
-    uint256 public constant MAX_SUPPLY = 10000;
-    uint256 public constant RESERVE_SUPPLY = 100; // team/giveaway mint
+    uint256 public constant MAX_SUPPLY = 100;
+    uint256 public constant RESERVE_SUPPLY = 10; // team/giveaway mint
 
     // ============ MINT LIMITS ============
-    uint256 public constant PRESALE_MAX_PER_WALLET = 3;
-    uint256 public constant PUBLICSALE_MAX_PER_WALLET = 5;
+    uint256 public constant PRESALE_MAX_PER_WALLET = 2;
+    uint256 public constant PUBLICSALE_MAX_PER_WALLET = 3;
 
     // ============ PRICE (in wei) ============
     uint256 public presalePrice = 0.01 ether;
